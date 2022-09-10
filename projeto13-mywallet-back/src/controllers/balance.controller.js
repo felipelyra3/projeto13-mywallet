@@ -1,12 +1,7 @@
 import db from "../database/db.js";
 
 async function balance(req, res) {
-    const token = req.headers.authorization?.replace('Bearer ', '');
-
-    if (!token) {
-        res.status(401).send('Usuário não encontrado');
-        return;
-    }
+    const token = res.locals.token;
 
     try {
         const session = await db.collection('sessions').findOne({ token });
